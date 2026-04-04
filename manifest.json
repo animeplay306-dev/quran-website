@@ -1,0 +1,22 @@
+{
+  "name": "تطبيق القران",
+  "short_name": "القران",
+  "description": "تطبيق القران يعرض النصوص القرآنية بسهولة.",
+  "version": "3.8.6",
+  "developer": {
+    "name": "عمر",
+    "email": ["animeplay306@gmail.com", "omarrabie496@gmail.com"],
+    "phone": ["+201283073813", "+97431298191"]
+  },
+  "icons": [
+    {
+      "src": "icon/omar.png",
+      "sizes": "512x512",
+      "type": "image/png"
+    }
+  ],
+  "start_url": "index.html",
+  "display": "standalone",
+  "background_color": "#ffffff",
+  "theme_color": "#2196f3"
+}
