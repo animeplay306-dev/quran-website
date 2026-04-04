@@ -1,0 +1,24 @@
+{
+  "app": {
+    "name": "Quran App",
+    "version": "3.8.6",
+    "description": "تطبيق لقراءة القرآن على الهاتف",
+    "language": "ar",
+    "platform": "Android",
+    "license": "MIT"
+  },
+  "developer": {
+    "name": "Omar",
+    "emails": [
+      "animeplay306@gmail.com",
+      "omarrabie496@gmail.com"
+    ],
+    "website": "https://animeplay306-dev.github.io/quran-website/",
+    "contact_numbers": [
+      "+201283073813",
+      "+97431298191"
+    ]
+  },
+  "created_at": "2026-04-04",
+  "updated_at": "2026-04-04"
+}
