@@ -1,0 +1,47 @@
+pluginManagement {
+    repositories {
+        google()
+        mavenCentral()
+        gradlePluginPortal()
+    }
+    
+    resolutionStrategy {
+        eachPlugin {
+            if (requested.id.namespace == "com.android") {
+                useModule("com.android.tools.build:gradle:7.4.2")
+            }
+            if (requested.id.id == "org.jetbrains.kotlin.android") {
+                useVersion("1.8.10")
+            }
+        }
+    }
+}
+
+dependencyResolutionManagement {
+    repositoriesMode.set(RepositoriesMode.FAIL_ON_PROJECT_REPOS)
+    
+    repositories {
+        google()
+        mavenCentral()
+        maven { url "https://jitpack.io" }
+        maven { url "https://maven.google.com" }
+        maven { url "https://plugins.gradle.org/m2/" }
+    }
+}
+
+rootProject.name = "QuranApp"
+
+include ':app'
+
+// Project properties
+gradle.projectsLoaded {
+    rootProject.ext {
+        appName = "QuranApp"
+        appVersion = "3.8.6"
+        developer = "Omar"
+        developerAge = 14
+        minSdk = 21
+        targetSdk = 33
+        compileSdk = 33
+    }
+}

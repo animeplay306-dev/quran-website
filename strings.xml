@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- App Name -->
+    <string name="app_name">القرآن الكريم</string>
+    <string name="app_name_en">Quran App</string>
+    
+    <!-- Developer -->
+    <string name="developer_name">Omar</string>
+    <string name="developer_age">14</string>
+    
+    <!-- Navigation -->
+    <string name="nav_home">الرئيسية</string>
+    <string name="nav_read">القراءة</string>
+    <string name="nav_listen">الاستماع</string>
+    <string name="nav_favorites">المفضلة</string>
+    <string name="nav_settings">الإعدادات</string>
+    
+    <!-- Actions -->
+    <string name="action_share">مشاركة</string>
+    <string name="action_copy">نسخ</string>
+    <string name="action_bookmark">حفظ</string>
+    <string name="action_play">تشغيل</string>
+    <string name="action_pause">إيقاف</string>
+    <string name="action_download">تحميل</string>
+    
+    <!-- Messages -->
+    <string name="msg_loading">جاري التحميل...</string>
+    <string name="msg_error">حدث خطأ</string>
+    <string name="msg_no_internet">لا يوجد اتصال بالإنترنت</string>
+    <string name="msg_saved">تم الحفظ</string>
+    
+    <!-- Surah Names -->
+    <string name="surah_fatiha">الفاتحة</string>
+    <string name="surah_baqarah">البقرة</string>
+    
+    <!-- Quran Info -->
+    <string name="quran_surahs">114 سورة</string>
+    <string name="quran_ayahs">6236 آية</string>
+    
+    <!-- Audio -->
+    <string name="audio_playing">جاري التشغيل</string>
+    <string name="audio_stopped">متوقف</string>
+    <string name="audio_buffering">جاري التخزين...</string>
+    
+    <!-- Settings -->
+    <string name="setting_theme">الوضع</string>
+    <string name="setting_font_size">حجم الخط</string>
+    <string name="setting_language">اللغة</string>
+    
+    <!-- About -->
+    <string name="about_version">الإصدار 3.8.6</string>
+    <string name="about_copyright">© 2026 Omar</string>
+</resources>
