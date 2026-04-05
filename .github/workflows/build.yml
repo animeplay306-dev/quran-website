@@ -11,21 +11,26 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
+      # 1️⃣ نسحب الكود من الريبو
       - name: Checkout repository
         uses: actions/checkout@v4
 
+      # 2️⃣ نثبت JDK 21 الحديث
       - name: Set up JDK 21
         uses: actions/setup-java@v3
         with:
           java-version: '21'
           distribution: 'temurin'
 
+      # 3️⃣ نعطي صلاحية تنفيذ gradlew
       - name: Grant execute permission for gradlew
         run: chmod +x gradlew
 
+      # 4️⃣ نبني APK نسخة Debug
       - name: Build Debug APK
         run: ./gradlew assembleDebug
 
+      # 5️⃣ نرفع APK كـ artifact
       - name: Upload APK
         uses: actions/upload-artifact@v4
         with:
