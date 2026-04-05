@@ -4,6 +4,7 @@ on:
   push:
     branches:
       - main
+      - dev-branch
   workflow_dispatch:
 
 jobs:
@@ -26,7 +27,7 @@ jobs:
       - name: Grant execute permission for gradlew
         run: chmod +x gradlew
 
-      # 4️⃣ نبني APK نسخة Debug
+      # 4️⃣ نبني APK نسخة Debug مع زيادة الذاكرة
       - name: Build Debug APK
         run: ./gradlew assembleDebug
 
