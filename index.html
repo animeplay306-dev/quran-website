@@ -1,0 +1,487 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="القرآن الكريم | مصحف شامل - تلاوة وتفسير وبحث متكامل بأكثر من 190 قارئ و60 مصدر">
+    <meta name="keywords" content="القرآن, مصحف, تلاوة, تفسير, قراءة, اسلام, عمر, quran, muslim, prayer, omar">
+    <meta name="author" content="عمر">
+    <meta name="owner" content="عمر">
+    <meta name="copyright" content="عمر 2026">
+    
+    <!-- Open Graph / Facebook -->
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://animeplay306-dev.github.io/quran-website">
+    <meta property="og:title" content="القرآن الكريم | مصحف شامل - 190 قارئ">
+    <meta property="og:description" content="مصحف إلكتروني شامل مع التلاوة والتفسير والترجمة - 190 قارئ و60 مصدر">
+    <meta property="og:image" content="https://animeplay306-dev.github.io/quran-website/icon/omar.png">
+    <meta property="og:site_name" content="مصحف عمر">
+    
+    <!-- Twitter -->
+    <meta property="twitter:card" content="summary_large_image">
+    <meta property="twitter:url" content="https://animeplay306-dev.github.io/quran-website">
+    <meta property="twitter:title" content="القرآن الكريم | مصحف شامل">
+    <meta property="twitter:description" content="مصحف إلكتروني شامل مع 190 قارئ">
+    <meta property="twitter:image" content="https://animeplay306-dev.github.io/quran-website/icon/omar.png">
+    
+    <!-- Canonical -->
+    <link rel="canonical" href="https://animeplay306-dev.github.io/quran-website">
+    
+    <!-- Favicon -->
+    <link rel="icon" type="image/png" href="icon/omar.png">
+    <link rel="apple-touch-icon" href="icon/omar.png">
+    <link rel="shortcut icon" href="icon/omar.png">
+    
+    <title>القرآن الكريم | مصحف شامل - 190 قارئ</title>
+    
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Amiri:wght@400;700&family=Scheherazade+New:wght@400;700&family=Noto+Naskh+Arabic:wght@400;700&family=Cairo:wght@400;700&family=Tajawal:wght@400;700&display=swap" rel="stylesheet">
+    
+    <!-- CSS -->
+    <link rel="stylesheet" href="style.css">
+    
+    <!-- Firebase SDK -->
+    <script src="https://www.gstatic.com/firebasejs/9.22.0/firebase-app-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/9.22.0/firebase-auth-compat.js"></script>
+</head>
+<body>
+
+    <!-- Security Alert -->
+    <div class="security-alert" id="securityAlert">
+        ⚠️ تم اكتشاف VPN أو DNS غير مصرح - جاري حظر الوصول
+    </div>
+
+    <!-- Permission Screen -->
+    <div class="permission-modal" id="permissionScreen">
+        <div class="permission-box">
+            <img src="icon/omar.png" alt="Omar Logo" class="permission-logo" onerror="this.src='data:image/svg+xml,%3Csvg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22%3E%3Ccircle cx=%2250%22 cy=%2250%22 r=%2245%22 fill=%22%23ffd700%22/%3E%3Ctext x=%2250%22 y=%2265%22 font-size=%2240%22 text-anchor=%22middle%22 fill=%22%231a237e%22%3Eع%3C/text%3E%3C/svg%3E'">
+            <div class="permission-title">المصحف الشامل</div>
+            <div class="permission-subtitle">طلب أذونات الوصول للموقع</div>
+            
+            <div class="permission-grid">
+                <div class="permission-card">
+                    <div class="permission-header">
+                        <span class="permission-name">📍 الموقع الجغرافي</span>
+                        <span class="permission-icon">🌍</span>
+                    </div>
+                    <div class="permission-desc">لتحديد اتجاه القبلة وحساب أوقات الصلاة بدقة</div>
+                    <span class="permission-status status-pending" id="status-location">في الانتظار</span>
+                </div>
+
+                <div class="permission-card">
+                    <div class="permission-header">
+                        <span class="permission-name">🔔 الإشعارات</span>
+                        <span class="permission-icon">🔔</span>
+                    </div>
+                    <div class="permission-desc">تنبيهات أوقات الصلاة والأذكار اليومية</div>
+                    <span class="permission-status status-pending" id="status-notification">في الانتظار</span>
+                </div>
+
+                <div class="permission-card">
+                    <div class="permission-header">
+                        <span class="permission-name">📹 الكاميرا (اختياري)</span>
+                        <span class="permission-icon">📷</span>
+                    </div>
+                    <div class="permission-desc">فحص QR Codes للمواقع الدينية الموثوقة</div>
+                    <span class="permission-status status-pending" id="status-camera">في الانتظار</span>
+                </div>
+            </div>
+
+            <button class="permission-btn" id="grantBtn" onclick="requestAllPermissions()">
+                السماح بالأذونات
+            </button>
+            <br>
+            <button class="guest-btn" onclick="skipPermissions()">تخطي مؤقتاً</button>
+        </div>
+    </div>
+
+    <!-- Splash Screen -->
+    <div class="splash-screen" id="splashScreen">
+        <div class="splash-content">
+            <img src="icon/omar.png" alt="Omar Logo" class="splash-logo" onerror="this.src='data:image/svg+xml,%3Csvg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22%3E%3Ccircle cx=%2250%22 cy=%2250%22 r=%2245%22 fill=%22%23ffd700%22/%3E%3Ctext x=%2250%22 y=%2265%22 font-size=%2240%22 text-anchor=%22middle%22 fill=%22%231a237e%22%3Eع%3C/text%3E%3C/svg%3E'">
+            <div class="splash-title">القرآن الكريم</div>
+            <div class="splash-subtitle">مصحف شامل مع الحماية الذكية - 190 قارئ</div>
+            
+            <div class="system-info-box" id="systemBox">
+                <div class="system-info-title">🖥️ فحص النظام والأمان</div>
+                <div id="systemDetails">
+                    <div class="info-row">
+                        <span class="info-label">جاري الفحص...</span>
+                        <div class="loader" style="width: 20px; height: 20px; border-width: 2px;"></div>
+                    </div>
+                </div>
+            </div>
+
+            <button class="enter-btn" id="enterBtn" onclick="enterWebsite()" disabled style="opacity: 0.5;">
+                جاري فحص الأمان...
+            </button>
+            <br>
+            <button class="guest-btn" onclick="enterAsGuest()">دخول كضيف</button>
+        </div>
+    </div>
+
+    <!-- Loading Screen -->
+    <div class="loading-screen" id="loadingScreen">
+        <div class="loader"></div>
+        <p style="margin-top: 20px; color: var(--secondary);">جاري تحميل المصحف...</p>
+    </div>
+
+    <!-- Main App -->
+    <div class="app-container" id="appContainer">
+        <!-- Settings Button -->
+        <button class="settings-btn" onclick="openSettings()" style="position: fixed; top: 80px; left: 20px; z-index: 999; width: 45px; height: 45px; border-radius: 50%; background: var(--accent); border: none; cursor: pointer; font-size: 1.3rem; color: #fff; box-shadow: 0 5px 20px rgba(0,0,0,0.3);" title="الإعدادات">⚙️</button>
+
+        <!-- Header -->
+        <header class="main-header">
+            <div class="header-top">
+                <div class="logo">
+                    <img src="icon/omar.png" alt="Logo" class="logo-img" onerror="this.src='data:image/svg+xml,%3Csvg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22%3E%3Ccircle cx=%2250%22 cy=%2250%22 r=%2245%22 fill=%22%23ffd700%22/%3E%3Ctext x=%2250%22 y=%2265%22 font-size=%2240%22 text-anchor=%22middle%22 fill=%22%231a237e%22%3Eع%3C/text%3E%3C/svg%3E'">
+                    القرآن الكريم
+                </div>
+                
+                <div class="security-badge" id="vpnBadge">⚠️ VPN Detected</div>
+                
+                <div class="user-info-bar">
+                    <div class="info-badge" id="userIp">IP: --</div>
+                    <div class="info-badge" id="userDevice">جهاز: --</div>
+                    <div class="info-badge" id="userLocation">الموقع: --</div>
+                    <div class="info-badge" id="userStatus">حالة: زائر</div>
+                </div>
+                
+                <div class="live-clock" id="liveClock">00:00:00</div>
+                <div class="date-display">
+                    <div class="date-box">
+                        <div class="date-label">الميلادي</div>
+                        <div id="gregorianDate">-</div>
+                    </div>
+                    <div class="date-box">
+                        <div class="date-label">الهجري</div>
+                        <div id="hijriDate">-</div>
+                    </div>
+                </div>
+            </div>
+            
+            <nav class="nav-tabs">
+                <button class="nav-tab active" onclick="showSection('surahList')">📖 السور</button>
+                <button class="nav-tab" onclick="showSection('reader')">📜 المصحف</button>
+                <button class="nav-tab" onclick="showSection('adhkar')">📿 أذكار</button>
+                <button class="nav-tab" onclick="showSection('search')">🔍 البحث</button>
+                <button class="nav-tab" onclick="showSection('favorites')">❤️ المفضلة</button>
+                <button class="nav-tab" onclick="showSection('security')">🛡️ الحماية</button>
+                <button class="nav-tab" onclick="showSection('reciters')">🎙️ القراء</button>
+                <button class="nav-tab" onclick="showSection('sources')">🌐 المصادر</button>
+                <button class="nav-tab" onclick="showSection('upload')">☁️ رفع</button>
+                <button class="nav-tab" onclick="showSection('comments')">💬 التعليقات</button>
+                <button class="nav-tab" onclick="showSection('login')">🔐 تسجيل الدخول</button>
+            </nav>
+        </header>
+
+        <!-- Main Content -->
+        <div class="main-content">
+            <!-- Surah List -->
+            <section class="content-section active" id="surahList">
+                <div id="seasonalBanner" class="seasonal-banner" style="display: none;">
+                    <div class="seasonal-title" id="seasonalText"></div>
+                </div>
+                <div class="surah-grid" id="surahGrid"></div>
+            </section>
+
+            <!-- Reader Section -->
+            <section class="content-section" id="reader">
+                <div class="reader-container">
+                    <div class="reader-header">
+                        <h2 class="reader-title" id="currentSurahName">اختر سورة للقراءة</h2>
+                        <div class="reader-controls">
+                            <button class="control-btn" onclick="toggleTafsir()">📖 التفسير</button>
+                            <button class="control-btn" onclick="addToFavorites()">❤️ حفظ</button>
+                            <button class="control-btn" onclick="copyAyah()">📋 نسخ</button>
+                            <button class="control-btn" onclick="downloadAudio()">⬇️ تحميل</button>
+                        </div>
+                    </div>
+
+                    <!-- Navigation Buttons -->
+                    <div class="surah-navigation">
+                        <button class="nav-surah-btn prev" onclick="navigateSurah(-1)" id="prevSurahBtn" disabled>
+                            ⬅️ السورة السابقة
+                        </button>
+                        <span class="current-surah-indicator" id="surahIndicator">اختر سورة</span>
+                        <button class="nav-surah-btn next" onclick="navigateSurah(1)" id="nextSurahBtn" disabled>
+                            السورة التالية ➡️
+                        </button>
+                    </div>
+
+                    <div class="audio-player-container">
+                        <select class="reciter-select" id="reciterSelect" onchange="changeReciter()">
+                            <optgroup label="القراء المشهورون">
+                                <option value="https://server8.mp3quran.net/afs">مشاري العفاسي</option>
+                                <option value="https://server8.mp3quran.net/basit">عبد الباسط عبد الصمد</option>
+                                <option value="https://server8.mp3quran.net/minsh">محمد صديق المنشاوي</option>
+                                <option value="https://server8.mp3quran.net/maher">ماهر المعيقلي</option>
+                                <option value="https://server8.mp3quran.net/gamdi">سعد الغامدي</option>
+                                <option value="https://server8.mp3quran.net/shur">سعود الشريم</option>
+                                <option value="https://server8.mp3quran.net/jbrl">محمد جبريل</option>
+                                <option value="https://server8.mp3quran.net/sds">عبدالرحمن السديس</option>
+                            </optgroup>
+                        </select>
+                        
+                        <select class="translation-select" id="translationSelect" onchange="changeTranslation()">
+                            <option value="">بدون ترجمة</option>
+                            <option value="en">English - Sahih International</option>
+                            <option value="ur">اردو - جالندھری</option>
+                            <option value="fr">Français - Hamidullah</option>
+                            <option value="es">Español - Cortes</option>
+                            <option value="tr">Türkçe - Diyanet</option>
+                        </select>
+                        
+                        <div class="audio-controls">
+                            <button class="play-btn" id="playBtn" onclick="togglePlay()">▶</button>
+                            <div class="progress-container">
+                                <div class="progress-bar" onclick="seek(event)">
+                                    <div class="progress-fill" id="progressFill"></div>
+                                </div>
+                                <div class="time-display">
+                                    <span id="currentTime">0:00</span>
+                                    <span id="duration">0:00</span>
+                                </div>
+                            </div>
+                        </div>
+                        <audio id="audioPlayer" preload="metadata"></audio>
+                    </div>
+
+                    <div class="ayahs-wrapper">
+                        <div class="ayahs-container" id="ayahsContainer">
+                            <p style="text-align: center; color: rgba(255,255,255,0.5); padding: 50px;">
+                                اختر سورة من القائمة لبدء القراءة والاستماع
+                            </p>
+                        </div>
+                    </div>
+
+                    <div class="tafsir-container" id="tafsirContainer">
+                        <h3 class="tafsir-title">التفسير الميسر</h3>
+                        <div class="tafsir-text" id="tafsirText">اختر سورة لعرض التفسير</div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Adhkar Section -->
+            <section class="content-section" id="adhkar">
+                <h2 style="text-align: center; color: var(--secondary); margin-bottom: 30px; font-size: 2.5rem;">📿 الأذكار والأدعية</h2>
+                
+                <div class="adhkar-categories">
+                    <button class="adhkar-cat-btn active" onclick="showAdhkarCategory('morning')">☀️ أذكار الصباح</button>
+                    <button class="adhkar-cat-btn" onclick="showAdhkarCategory('evening')">🌙 أذكار المساء</button>
+                    <button class="adhkar-cat-btn" onclick="showAdhkarCategory('sleep')">😴 أذكار النوم</button>
+                    <button class="adhkar-cat-btn" onclick="showAdhkarCategory('prayer')">🕌 أذكار بعد الصلاة</button>
+                    <button class="adhkar-cat-btn" onclick="showAdhkarCategory('general')">📿 أذكار عامة</button>
+                </div>
+
+                <div class="adhkar-content" id="adhkarContent">
+                    <!-- Content loaded dynamically -->
+                </div>
+
+                <div class="adhkar-counter">
+                    <div class="counter-display" id="counterDisplay">0</div>
+                    <button class="counter-btn" onclick="incrementCounter()">+</button>
+                    <button class="counter-btn reset" onclick="resetCounter()">↺</button>
+                </div>
+            </section>
+
+            <!-- Search Section -->
+            <section class="content-section" id="search">
+                <div class="search-box">
+                    <input type="text" class="search-input" id="searchInput" placeholder="ابحث في القرآن..." onkeyup="searchAll(event)">
+                    <button class="search-btn">🔍</button>
+                </div>
+                <div class="search-filters">
+                    <button class="filter-btn active" onclick="setFilter('all')">الكل</button>
+                    <button class="filter-btn" onclick="setFilter('quran')">القرآن</button>
+                    <button class="filter-btn" onclick="setFilter('tafsir')">التفسير</button>
+                </div>
+                <div class="search-results-grid" id="searchResults"></div>
+            </section>
+
+            <!-- Favorites Section -->
+            <section class="content-section" id="favorites">
+                <h2 style="text-align: center; color: var(--secondary); margin-bottom: 30px; font-size: 2rem;">السور المفضلة</h2>
+                <div class="favorites-grid" id="favoritesGrid"></div>
+            </section>
+
+            <!-- Security Section -->
+            <section class="content-section" id="security">
+                <div class="security-panel">
+                    <div class="security-panel-title">🛡️ لوحة الحماية والمراقبة</div>
+                    <div class="security-grid" id="securityGrid"></div>
+                </div>
+                <div class="security-panel" style="border-color: var(--accent);">
+                    <div class="security-panel-title" style="color: var(--accent);">📋 سجل النشاطات</div>
+                    <div id="activityLog" style="max-height: 400px; overflow-y: auto;"></div>
+                </div>
+            </section>
+
+            <!-- Reciters Section -->
+            <section class="content-section" id="reciters">
+                <h2 style="text-align: center; color: var(--secondary); margin-bottom: 30px; font-size: 2.5rem;">🎙️ 190 قارئ</h2>
+                <input type="text" class="form-input" placeholder="🔍 البحث في القراء..." onkeyup="filterReciters(this.value)" style="max-width: 500px; margin: 0 auto 30px; display: block;">
+                <div class="reciters-grid" id="recitersList"></div>
+            </section>
+
+            <!-- Sources Section -->
+            <section class="content-section" id="sources">
+                <h2 style="text-align: center; color: var(--secondary); margin-bottom: 30px; font-size: 2.5rem;">🌐 60 مصدراً قرآنياً</h2>
+                <div class="sources-grid" id="sourcesList"></div>
+            </section>
+
+            <!-- Upload Section -->
+            <section class="content-section" id="upload">
+                <h2 style="text-align: center; color: var(--secondary); margin-bottom: 30px; font-size: 2.5rem;">☁️ رفع المحتوى</h2>
+                
+                <div class="security-panel" style="border-color: var(--warning); margin-bottom: 30px;">
+                    <div class="security-panel-title" style="color: var(--warning);">⚠️ شروط الرفع</div>
+                    <ul style="line-height: 2; margin-right: 20px;">
+                        <li>محتوى إسلامي أو قرآني فقط</li>
+                        <li>يمنع رفع المحتوى المخالف للشريعة</li>
+                        <li>الحد الأقصى: 10 ميجابايت</li>
+                        <li>المراجعة التلقائية قبل النشر</li>
+                    </ul>
+                </div>
+
+                <div class="upload-zone" onclick="document.getElementById('fileInput').click()" ondrop="handleDrop(event)" ondragover="handleDragOver(event)" ondragleave="handleDragLeave(event)">
+                    <input type="file" id="fileInput" style="display: none;" accept=".html,.txt,.pdf,image/*" onchange="handleFileSelect(event)">
+                    <div class="upload-icon">📤</div>
+                    <div class="upload-text">اضغط أو اسحب الملفات هنا</div>
+                    <div class="upload-hint">PDF, HTML, TXT, Images (Max 10MB)</div>
+                </div>
+
+                <div style="background: var(--glass); padding: 20px; border-radius: 15px; margin-bottom: 30px;">
+                    <div class="upload-text" style="margin-bottom: 15px;">📝 أو أدخل نصاً مباشرة</div>
+                    <textarea class="form-textarea" id="directText" placeholder="اكتب المحتوى القرآني هنا..."></textarea>
+                    <button class="btn-primary" onclick="submitDirectText()">رفع النص</button>
+                </div>
+
+                <h3 style="color: var(--accent); margin-bottom: 20px;">📋 المحتوى المرفوع</h3>
+                <div class="uploaded-pages" id="uploadedPages"></div>
+            </section>
+
+            <!-- Comments Section -->
+            <section class="content-section" id="comments">
+                <div class="comments-section" style="max-width: 800px; margin: 0 auto;">
+                    <h2 class="comments-title">💬 نظام التعليقات والملاحظات</h2>
+                    <div class="comment-form">
+                        <input type="text" class="comment-input" id="commentName" placeholder="اسمك (اختياري)" style="min-height: auto;">
+                        <select class="comment-input" id="commentType" style="min-height: auto;">
+                            <option value="general">تعليق عام</option>
+                            <option value="bug">الإبلاغ عن خطأ</option>
+                            <option value="feature">اقتراح ميزة</option>
+                            <option value="quran-error">تصحيح قرآني</option>
+                        </select>
+                        <textarea class="comment-input" id="commentText" placeholder="اكتب تعليقك هنا..."></textarea>
+                        <button class="comment-submit" onclick="submitComment()">📤 إرسال</button>
+                    </div>
+                    <div class="comments-list" id="commentsList"></div>
+                </div>
+            </section>
+
+            <!-- Login Section -->
+            <section class="content-section" id="login">
+                <div class="login-container">
+                    <h2 style="text-align: center; color: var(--secondary); margin-bottom: 30px; font-size: 2.5rem;">🔐 تسجيل الدخول</h2>
+                    
+                    <div id="userProfile" style="display: none; text-align: center; padding: 30px;">
+                        <img id="userPhoto" src="" alt="User" style="width: 100px; height: 100px; border-radius: 50%; border: 3px solid var(--secondary); margin-bottom: 15px;">
+                        <h3 id="userName" style="color: var(--secondary); margin-bottom: 10px;"></h3>
+                        <p id="userEmail" style="color: rgba(255,255,255,0.7); margin-bottom: 20px;"></p>
+                        <button class="btn-primary" onclick="logout()" style="background: var(--danger);">تسجيل الخروج</button>
+                    </div>
+
+                    <div id="loginOptions" style="max-width: 400px; margin: 0 auto;">
+                        <div class="login-method">
+                            <h3 style="color: var(--accent); margin-bottom: 20px; text-align: center;">اختر طريقة الدخول</h3>
+                            
+                            <button class="login-btn google" onclick="loginWithGoogle()">
+                                <span class="login-icon">G</span>
+                                <span>الدخول بحساب Google</span>
+                            </button>
+                            
+                            <button class="login-btn phone" onclick="showPhoneLogin()">
+                                <span class="login-icon">📱</span>
+                                <span>الدخول برقم الهاتف</span>
+                            </button>
+                            
+                            <div id="phoneLoginForm" style="display: none; margin-top: 20px;">
+                                <input type="tel" class="form-input" id="phoneNumber" placeholder="أدخل رقم الهاتف (مثال: +966501234567)" style="margin-bottom: 15px; direction: ltr;">
+                                <div id="recaptcha-container"></div>
+                                <button class="btn-primary" onclick="sendPhoneCode()" style="width: 100%; margin-bottom: 10px;">إرسال رمز التحقق</button>
+                                
+                                <div id="codeVerification" style="display: none;">
+                                    <input type="text" class="form-input" id="smsCode" placeholder="أدخل رمز التحقق" style="margin-bottom: 15px; direction: ltr;">
+                                    <button class="btn-primary" onclick="verifyPhoneCode()" style="width: 100%;">تحقق</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Footer -->
+            <footer class="main-footer">
+                <img src="icon/omar.png" alt="Omar Logo" class="footer-logo" onerror="this.src='data:image/svg+xml,%3Csvg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22%3E%3Ccircle cx=%2250%22 cy=%2250%22 r=%2245%22 fill=%22%23ffd700%22/%3E%3Ctext x=%2250%22 y=%2265%22 font-size=%2240%22 text-anchor=%22middle%22 fill=%22%231a237e%22%3Eع%3C/text%3E%3C/svg%3E'">
+                <div class="footer-text">صدق الله العظيم</div>
+                <div class="footer-credit">صنع بإتقان من <span>عمر</span> 🌟</div>
+                <div style="margin-top: 15px; color: rgba(255,255,255,0.4); font-size: 0.9rem;">
+                    190 قارئ | 60 مصدر | نظام حماية ذكي
+                </div>
+                <div style="margin-top: 10px;">
+                    <span style="color: rgba(255,255,255,0.5);">v4.0 - 2026</span>
+                </div>
+            </footer>
+        </div>
+    </div>
+
+    <!-- App Download Button -->
+    <div class="app-download">
+        <button class="app-btn" onclick="downloadApp()">
+            <span>📱</span>
+            <span>حمل التطبيق</span>
+        </button>
+    </div>
+
+    <!-- Settings Modal -->
+    <div class="modal" id="settingsModal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3 class="modal-title">⚙️ الإعدادات</h3>
+                <button class="close-btn" onclick="closeModal('settingsModal')">&times;</button>
+            </div>
+            
+            <div class="form-group">
+                <label class="form-label">🎨 خلفية الموقع</label>
+                <select class="form-select" onchange="changeBackground(this.value)">
+                    <option value="https://images.unsplash.com/photo-1542816417-0983c9c9ad53?w=1920">مسجد الكعبة</option>
+                    <option value="https://images.unsplash.com/photo-1564121211835-e88c852648ab?w=1920">مسجد أزرق</option>
+                    <option value="https://images.unsplash.com/photo-1584551246679-0daf3d275d0f?w=1920">نمط إسلامي</option>
+                    <option value="none">بدون خلفية</option>
+                </select>
+            </div>
+            
+            <div class="form-group">
+                <label class="form-label">🌐 لغة الترجمة</label>
+                <select class="form-select" id="defaultLang" onchange="saveSettings()">
+                    <option value="ar">العربية</option>
+                    <option value="en">English</option>
+                    <option value="ur">اردو</option>
+                    <option value="fr">Français</option>
+                </select>
+            </div>
+            
+            <button class="btn-primary" onclick="saveSettings(); closeModal('settingsModal')">حفظ</button>
+        </div>
+    </div>
+
+     <!-- JavaScript -->
+<script src="data.js"></script>    <!-- الأول -->
+<script src="script.js"></script>  <!-- التاني -->
+
+</body>
+</html>
