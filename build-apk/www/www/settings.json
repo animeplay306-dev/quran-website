@@ -1,0 +1,271 @@
+{
+  "app": {
+    "name": "Quran App",
+    "name_ar": "تطبيق القرآن الكريم",
+    "version": "3.8.6",
+    "version_code": 1,
+    "description": "تطبيق شامل لقراءة القرآن الكريم مع 190 قارئ",
+    "description_ar": "تطبيق القرآن الكريم - 190 قارئ، تفسير ميسر، مفضلة، ورفع محتوى",
+    "language": "ar",
+    "default_language": "ar",
+    "supported_languages": ["ar", "en"],
+    "platform": "Android",
+    "platform_version": "5.0+",
+    "min_sdk": 21,
+    "target_sdk": 33,
+    "compile_sdk": 33,
+    "license": "MIT",
+    "package_name": "com.omar.quran",
+    "bundle_id": "com.omar.quran.v3",
+    "app_id": "quran.offline.app.omar",
+    "build_type": "release",
+    "debug_mode": false,
+    "timestamp": "2026-04-05T16:30:00Z"
+  },
+  "developer": {
+    "name": "Omar",
+    "name_ar": "عمر",
+    "age": 14,
+    "email_primary": "animeplay306@gmail.com",
+    "email_secondary": "omarrabie496@gmail.com",
+    "phone_primary": "+201283073813",
+    "phone_secondary": "+97431298191",
+    "website": "https://animeplay306-dev.github.io/quran-website/",
+    "github": "https://github.com/animeplay306-dev",
+    "location": "Egypt/Qatar",
+    "bio": "مطور شاب بعمر 14 سنة، أحب البرمجة والأنمي",
+    "social": {
+      "github": "animeplay306-dev",
+      "email": "animeplay306@gmail.com"
+    }
+  },
+  "features": {
+    "quran": {
+      "readers_count": 190,
+      "surahs_count": 114,
+      "ayahs_total": 6236,
+      "recitation": true,
+      "translation": true,
+      "tafsir": {
+        "available": true,
+        "type": "ميسر",
+        "language": "ar"
+      },
+      "word_by_word": false,
+      "tajweed": true
+    },
+    "audio": {
+      "streaming": true,
+      "offline_download": true,
+      "background_playback": true,
+      "repeat_ayah": true,
+      "repeat_range": true,
+      "speed_control": true,
+      "sleep_timer": true
+    },
+    "ui": {
+      "themes": ["light", "dark", "auto"],
+      "default_theme": "light",
+      "fonts": ["Almarai", "Amiri", "Scheherazade", "Uthmani"],
+      "default_font": "Almarai",
+      "font_sizes": [14, 16, 18, 20, 22, 24, 26, 28],
+      "default_font_size": 18,
+      "rtl": true,
+      "landscape_support": true,
+      "tablet_optimized": true
+    },
+    "user": {
+      "favorites": true,
+      "bookmarks": true,
+      "notes": true,
+      "history": true,
+      "search": {
+        "enabled": true,
+        "type": "local",
+        "filters": ["surah", "ayah", "text", "tafsir"]
+      },
+      "upload_content": {
+        "enabled": true,
+        "max_size_mb": 10,
+        "allowed_types": ["pdf", "html", "txt", "image"],
+        "requires_approval": true
+      }
+    },
+    "notifications": {
+      "enabled": true,
+      "daily_ayah": true,
+      "prayer_reminders": false,
+      "download_complete": true
+    },
+    "offline": {
+      "enabled": true,
+      "cache_size_mb": 100,
+      "auto_download_favorites": false,
+      "storage_location": "internal"
+    }
+  },
+  "permissions": {
+    "required": {
+      "internet": {
+        "reason": "لتحميل المحتوى والصوت",
+        "required": true
+      },
+      "storage": {
+        "reason": "لحفظ التنزيلات والملفات",
+        "required": true,
+        "android_version": "max_sdk_28"
+      },
+      "foreground_service": {
+        "reason": "لتشغيل الصوت في الخلفية",
+        "required": true
+      },
+      "wake_lock": {
+        "reason": "لمنع الجهاز من النوم أثناء الاستماع",
+        "required": false
+      }
+    },
+    "optional": {
+      "notifications": {
+        "reason": "لإرسال الآية اليومية",
+        "default": true
+      },
+      "microphone": {
+        "reason": "للبحث الصوتي",
+        "default": false
+      },
+      "camera": {
+        "reason": "لقراءة QR codes",
+        "default": false
+      },
+      "location": {
+        "reason": "لتحديد مواقيت الصلاة",
+        "default": false
+      }
+    }
+  },
+  "ui_config": {
+    "colors": {
+      "primary": "#2196F3",
+      "primary_dark": "#1976D2",
+      "primary_light": "#BBDEFB",
+      "accent": "#FF9800",
+      "accent_dark": "#F57C00",
+      "background": "#FFFFFF",
+      "background_dark": "#121212",
+      "surface": "#FFFFFF",
+      "surface_dark": "#1E1E1E",
+      "text_primary": "#212121",
+      "text_secondary": "#757575",
+      "text_primary_dark": "#FFFFFF",
+      "text_secondary_dark": "#B0B0B0",
+      "error": "#F44336",
+      "success": "#4CAF50",
+      "warning": "#FFC107",
+      "info": "#2196F3"
+    },
+    "dimensions": {
+      "padding_small": 8,
+      "padding_medium": 16,
+      "padding_large": 24,
+      "margin_small": 8,
+      "margin_medium": 16,
+      "margin_large": 24,
+      "corner_radius_small": 4,
+      "corner_radius_medium": 8,
+      "corner_radius_large": 16,
+      "elevation_small": 2,
+      "elevation_medium": 4,
+      "elevation_large": 8
+    },
+    "animations": {
+      "enabled": true,
+      "duration_short": 150,
+      "duration_medium": 300,
+      "duration_long": 500,
+      "easing": "easeInOut"
+    }
+  },
+  "api": {
+    "base_url": "https://animeplay306-dev.github.io/quran-website/api",
+    "timeout_seconds": 30,
+    "retry_count": 3,
+    "cache_duration_minutes": 60,
+    "endpoints": {
+      "readers": "/readers",
+      "surahs": "/surahs",
+      "ayahs": "/ayahs",
+      "audio": "/audio",
+      "tafsir": "/tafsir",
+      "search": "/search"
+    }
+  },
+  "security": {
+    "ssl_pinning": false,
+    "root_detection": false,
+    "obfuscation": true,
+    "tamper_detection": false,
+    "biometric_lock": false
+  },
+  "analytics": {
+    "enabled": false,
+    "provider": "none",
+    "track_crash": true,
+    "track_performance": false,
+    "track_usage": false
+  },
+  "ads": {
+    "enabled": false,
+    "provider": "none",
+    "banner": false,
+    "interstitial": false,
+    "rewarded": false
+  },
+  "created_at": "2026-04-04T00:00:00Z",
+  "updated_at": "2026-04-05T16:30:00Z",
+  "changelog": [
+    {
+      "version": "3.8.6",
+      "date": "2026-04-05",
+      "type": "major",
+      "changes": [
+        "تحويل التطبيق للعمل Offline بالكامل",
+        "إضافة سحب للتحديث (Pull to Refresh)",
+        "تحسين أداء WebView",
+        "دعم 190 قارئ جديد",
+        "إضافة وضع الليل التلقائي",
+        "تحسين مشغل الصوت في الخلفية"
+      ],
+      "fixes": [
+        "إصلاح مشكلة عدم تحميل الصفحة بدون نت",
+        "إصلاح مشكلة توقف الصوت عند قفل الشاشة"
+      ]
+    },
+    {
+      "version": "3.8.5",
+      "date": "2026-04-04",
+      "type": "minor",
+      "changes": [
+        "إضافة نظام المفضلة",
+        "إضافة خاصية رفع المحتوى"
+      ]
+    }
+  ],
+  "credits": {
+    "developer": "Omar (14 years old)",
+    "inspiration": "والدي ووالدتي",
+    "thanks": ["أبي", "أمي", "كل من دعمني"],
+    "libraries": [
+      "AndroidX",
+      "WebKit",
+      "SwipeRefreshLayout",
+      "Material Design"
+    ]
+  },
+  "meta": {
+    "timestamp": "2026-04-05T16:30:00Z",
+    "timezone": "Africa/Cairo",
+    "build_number": 1,
+    "git_commit": "5ce0173",
+    "environment": "production"
+  }
+}

@@ -1,0 +1,75 @@
+{
+  "app": {
+    "name": "Quran App",
+    "name_ar": "تطبيق القرآن الكريم",
+    "version": "3.8.6",
+    "version_code": 1,
+    "description": "تطبيق لقراءة القرآن الكريم والاستماع إلى 190 قارئ",
+    "description_ar": "تطبيق شامل لقراءة القرآن الكريم مع 190 قارئ وميزات متعددة",
+    "language": "ar",
+    "platform": "Android",
+    "min_sdk": 21,
+    "target_sdk": 33,
+    "license": "MIT",
+    "package_name": "com.omar.quran",
+    "app_id": "com.omar.quran.v3"
+  },
+  "developer": {
+    "name": "Omar",
+    "name_ar": "عمر",
+    "age": 14,
+    "emails": [
+      "animeplay306@gmail.com",
+      "omarrabie496@gmail.com"
+    ],
+    "phones": [
+      "+201283073813",
+      "+97431298191"
+    ],
+    "website": "https://animeplay306-dev.github.io/quran-website/",
+    "github": "https://github.com/animeplay306-dev",
+    "location": "Egypt/Qatar"
+  },
+  "features": {
+    "readers_count": 190,
+    "offline_support": true,
+    "tafsir": "ميسر",
+    "favorites": true,
+    "upload_content": true,
+    "night_mode": true,
+    "audio_background": true,
+    "search": true,
+    "bookmarks": true
+  },
+  "permissions": {
+    "internet": true,
+    "storage": true,
+    "notifications": true,
+    "microphone": false,
+    "camera": false,
+    "location": false
+  },
+  "ui": {
+    "theme": "light",
+    "primary_color": "#2196F3",
+    "accent_color": "#FF9800",
+    "background_color": "#FFFFFF",
+    "text_color": "#333333",
+    "font": "Almarai",
+    "font_size": 16,
+    "rtl": true
+  },
+  "created_at": "2026-04-04",
+  "updated_at": "2026-04-05",
+  "changelog": [
+    {
+      "version": "3.8.6",
+      "date": "2026-04-05",
+      "changes": [
+        "تحويل التطبيق للعمل Offline",
+        "تحسين الأداء",
+        "إضافة سحب للتحديث"
+      ]
+    }
+  ]
+}

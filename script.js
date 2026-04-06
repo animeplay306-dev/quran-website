@@ -28,8 +28,11 @@ async function performSecurityCheck() {
         const ip = await getIPInternal();
         
         // Check for VPN patterns
-        const vpnPatterns = [/^10\./, /^172\.(1[6-9]|2[0-9]|3[01])\./, /^192\.168\./, /^127\./];
         const isVPN = vpnPatterns.some(p => p.test(ip));
+        // تعطيل فحص VPN المؤقت
+        const isVPN = false;
+        const hasWebRTCLeak = false;
+
         
         // Check for WebRTC leaks
         const hasWebRTCLeak = await checkWebRTCLeak();
