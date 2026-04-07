@@ -6,43 +6,26 @@
     <meta name="description" content="القرآن الكريم | مصحف شامل - تلاوة وتفسير وبحث متكامل بأكثر من 190 قارئ و60 مصدر">
     <meta name="keywords" content="القرآن, مصحف, تلاوة, تفسير, قراءة, اسلام, عمر, quran, muslim, prayer, omar">
     <meta name="author" content="عمر">
-    <meta name="owner" content="عمر">
     <meta name="copyright" content="عمر 2026">
     
-    <!-- Open Graph / Facebook -->
+    <!-- Open Graph -->
     <meta property="og:type" content="website">
-    <meta property="og:url" content="https://animeplay306-dev.github.io/quran-website">
     <meta property="og:title" content="القرآن الكريم | مصحف شامل - 190 قارئ">
-    <meta property="og:description" content="مصحف إلكتروني شامل مع التلاوة والتفسير والترجمة - 190 قارئ و60 مصدر">
-    <meta property="og:image" content="https://animeplay306-dev.github.io/quran-website/icon/omar.png">
-    <meta property="og:site_name" content="مصحف عمر">
-    
-    <!-- Twitter -->
-    <meta property="twitter:card" content="summary_large_image">
-    <meta property="twitter:url" content="https://animeplay306-dev.github.io/quran-website">
-    <meta property="twitter:title" content="القرآن الكريم | مصحف شامل">
-    <meta property="twitter:description" content="مصحف إلكتروني شامل مع 190 قارئ">
-    <meta property="twitter:image" content="https://animeplay306-dev.github.io/quran-website/icon/omar.png">
-    
-    <!-- Canonical -->
-    <link rel="canonical" href="https://animeplay306-dev.github.io/quran-website">
+    <meta property="og:description" content="مصحف إلكتروني شامل مع التلاوة والتفسير والترجمة">
     
     <!-- Favicon -->
     <link rel="icon" type="image/png" href="icon/omar.png">
-    <link rel="apple-touch-icon" href="icon/omar.png">
-    <link rel="shortcut icon" href="icon/omar.png">
     
     <title>القرآن الكريم | مصحف شامل - 190 قارئ</title>
     
     <!-- Google Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Amiri:wght@400;700&family=Scheherazade+New:wght@400;700&family=Noto+Naskh+Arabic:wght@400;700&family=Cairo:wght@400;700&family=Tajawal:wght@400;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Amiri:wght@400;700&family=Scheherazade+New:wght@400;700&family=Cairo:wght@400;700&family=Tajawal:wght@400;700&display=swap" rel="stylesheet">
     
-    <!-- CSS -->
+    <!-- ✅ ربط ملف CSS -->
     <link rel="stylesheet" href="style.css">
     
-    <!-- Firebase SDK -->
+    <!-- Firebase -->
     <script src="https://www.gstatic.com/firebasejs/9.22.0/firebase-app-compat.js"></script>
     <script src="https://www.gstatic.com/firebasejs/9.22.0/firebase-auth-compat.js"></script>
 </head>
@@ -56,7 +39,7 @@
     <!-- Permission Screen -->
     <div class="permission-modal" id="permissionScreen">
         <div class="permission-box">
-            <img src="icon/omar.png" alt="Omar Logo" class="permission-logo" onerror="this.src='data:image/svg+xml,%3Csvg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22%3E%3Ccircle cx=%2250%22 cy=%2250%22 r=%2245%22 fill=%22%23ffd700%22/%3E%3Ctext x=%2250%22 y=%2265%22 font-size=%2240%22 text-anchor=%22middle%22 fill=%22%231a237e%22%3Eع%3C/text%3E%3C/svg%3E'">
+            <img src="icon/omar.png" alt="Omar Logo" class="permission-logo">
             <div class="permission-title">المصحف الشامل</div>
             <div class="permission-subtitle">طلب أذونات الوصول للموقع</div>
             
@@ -100,7 +83,7 @@
     <!-- Splash Screen -->
     <div class="splash-screen" id="splashScreen">
         <div class="splash-content">
-            <img src="icon/omar.png" alt="Omar Logo" class="splash-logo" onerror="this.src='data:image/svg+xml,%3Csvg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22%3E%3Ccircle cx=%2250%22 cy=%2250%22 r=%2245%22 fill=%22%23ffd700%22/%3E%3Ctext x=%2250%22 y=%2265%22 font-size=%2240%22 text-anchor=%22middle%22 fill=%22%231a237e%22%3Eع%3C/text%3E%3C/svg%3E'">
+            <img src="icon/omar.png" alt="Omar Logo" class="splash-logo">
             <div class="splash-title">القرآن الكريم</div>
             <div class="splash-subtitle">مصحف شامل مع الحماية الذكية - 190 قارئ</div>
             
@@ -130,14 +113,15 @@
 
     <!-- Main App -->
     <div class="app-container" id="appContainer">
+        
         <!-- Settings Button -->
-        <button class="settings-btn" onclick="openSettings()" style="position: fixed; top: 80px; left: 20px; z-index: 999; width: 45px; height: 45px; border-radius: 50%; background: var(--accent); border: none; cursor: pointer; font-size: 1.3rem; color: #fff; box-shadow: 0 5px 20px rgba(0,0,0,0.3);" title="الإعدادات">⚙️</button>
+        <button class="settings-btn" onclick="openSettings()" title="الإعدادات">⚙️</button>
 
         <!-- Header -->
         <header class="main-header">
             <div class="header-top">
                 <div class="logo">
-                    <img src="icon/omar.png" alt="Logo" class="logo-img" onerror="this.src='data:image/svg+xml,%3Csvg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22%3E%3Ccircle cx=%2250%22 cy=%2250%22 r=%2245%22 fill=%22%23ffd700%22/%3E%3Ctext x=%2250%22 y=%2265%22 font-size=%2240%22 text-anchor=%22middle%22 fill=%22%231a237e%22%3Eع%3C/text%3E%3C/svg%3E'">
+                    <img src="icon/omar.png" alt="Logo" class="logo-img">
                     القرآن الكريم
                 </div>
                 
@@ -179,7 +163,8 @@
         </header>
 
         <!-- Main Content -->
-        <div class="main-content">
+        <main class="main-content">
+            
             <!-- Surah List -->
             <section class="content-section active" id="surahList">
                 <div id="seasonalBanner" class="seasonal-banner" style="display: none;">
@@ -201,7 +186,6 @@
                         </div>
                     </div>
 
-                    <!-- Navigation Buttons -->
                     <div class="surah-navigation">
                         <button class="nav-surah-btn prev" onclick="navigateSurah(-1)" id="prevSurahBtn" disabled>
                             ⬅️ السورة السابقة
@@ -267,7 +251,7 @@
 
             <!-- Adhkar Section -->
             <section class="content-section" id="adhkar">
-                <h2 style="text-align: center; color: var(--secondary); margin-bottom: 30px; font-size: 2.5rem;">📿 الأذكار والأدعية</h2>
+                <h2 class="section-title">📿 الأذكار والأدعية</h2>
                 
                 <div class="adhkar-categories">
                     <button class="adhkar-cat-btn active" onclick="showAdhkarCategory('morning')">☀️ أذكار الصباح</button>
@@ -277,9 +261,7 @@
                     <button class="adhkar-cat-btn" onclick="showAdhkarCategory('general')">📿 أذكار عامة</button>
                 </div>
 
-                <div class="adhkar-content" id="adhkarContent">
-                    <!-- Content loaded dynamically -->
-                </div>
+                <div class="adhkar-content" id="adhkarContent"></div>
 
                 <div class="adhkar-counter">
                     <div class="counter-display" id="counterDisplay">0</div>
@@ -304,7 +286,7 @@
 
             <!-- Favorites Section -->
             <section class="content-section" id="favorites">
-                <h2 style="text-align: center; color: var(--secondary); margin-bottom: 30px; font-size: 2rem;">السور المفضلة</h2>
+                <h2 class="section-title">السور المفضلة</h2>
                 <div class="favorites-grid" id="favoritesGrid"></div>
             </section>
 
@@ -322,20 +304,20 @@
 
             <!-- Reciters Section -->
             <section class="content-section" id="reciters">
-                <h2 style="text-align: center; color: var(--secondary); margin-bottom: 30px; font-size: 2.5rem;">🎙️ 190 قارئ</h2>
+                <h2 class="section-title">🎙️ 190 قارئ</h2>
                 <input type="text" class="form-input" placeholder="🔍 البحث في القراء..." onkeyup="filterReciters(this.value)" style="max-width: 500px; margin: 0 auto 30px; display: block;">
                 <div class="reciters-grid" id="recitersList"></div>
             </section>
 
             <!-- Sources Section -->
             <section class="content-section" id="sources">
-                <h2 style="text-align: center; color: var(--secondary); margin-bottom: 30px; font-size: 2.5rem;">🌐 60 مصدراً قرآنياً</h2>
+                <h2 class="section-title">🌐 60 مصدراً قرآنياً</h2>
                 <div class="sources-grid" id="sourcesList"></div>
             </section>
 
             <!-- Upload Section -->
             <section class="content-section" id="upload">
-                <h2 style="text-align: center; color: var(--secondary); margin-bottom: 30px; font-size: 2.5rem;">☁️ رفع المحتوى</h2>
+                <h2 class="section-title">☁️ رفع المحتوى</h2>
                 
                 <div class="security-panel" style="border-color: var(--warning); margin-bottom: 30px;">
                     <div class="security-panel-title" style="color: var(--warning);">⚠️ شروط الرفع</div>
@@ -369,8 +351,8 @@
                 <div class="comments-section" style="max-width: 800px; margin: 0 auto;">
                     <h2 class="comments-title">💬 نظام التعليقات والملاحظات</h2>
                     <div class="comment-form">
-                        <input type="text" class="comment-input" id="commentName" placeholder="اسمك (اختياري)" style="min-height: auto;">
-                        <select class="comment-input" id="commentType" style="min-height: auto;">
+                        <input type="text" class="comment-input" id="commentName" placeholder="اسمك (اختياري)">
+                        <select class="comment-input" id="commentType">
                             <option value="general">تعليق عام</option>
                             <option value="bug">الإبلاغ عن خطأ</option>
                             <option value="feature">اقتراح ميزة</option>
@@ -386,7 +368,7 @@
             <!-- Login Section -->
             <section class="content-section" id="login">
                 <div class="login-container">
-                    <h2 style="text-align: center; color: var(--secondary); margin-bottom: 30px; font-size: 2.5rem;">🔐 تسجيل الدخول</h2>
+                    <h2 class="section-title">🔐 تسجيل الدخول</h2>
                     
                     <div id="userProfile" style="display: none; text-align: center; padding: 30px;">
                         <img id="userPhoto" src="" alt="User" style="width: 100px; height: 100px; border-radius: 50%; border: 3px solid var(--secondary); margin-bottom: 15px;">
@@ -426,7 +408,7 @@
 
             <!-- Footer -->
             <footer class="main-footer">
-                <img src="icon/omar.png" alt="Omar Logo" class="footer-logo" onerror="this.src='data:image/svg+xml,%3Csvg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22%3E%3Ccircle cx=%2250%22 cy=%2250%22 r=%2245%22 fill=%22%23ffd700%22/%3E%3Ctext x=%2250%22 y=%2265%22 font-size=%2240%22 text-anchor=%22middle%22 fill=%22%231a237e%22%3Eع%3C/text%3E%3C/svg%3E'">
+                <img src="icon/omar.png" alt="Omar Logo" class="footer-logo">
                 <div class="footer-text">صدق الله العظيم</div>
                 <div class="footer-credit">صنع بإتقان من <span>عمر</span> 🌟</div>
                 <div style="margin-top: 15px; color: rgba(255,255,255,0.4); font-size: 0.9rem;">
@@ -436,7 +418,7 @@
                     <span style="color: rgba(255,255,255,0.5);">v4.0 - 2026</span>
                 </div>
             </footer>
-        </div>
+        </main>
     </div>
 
     <!-- App Download Button -->
@@ -479,8 +461,10 @@
         </div>
     </div>
 
-    <!-- JavaScript -->
+    <!-- ✅ ربط ملفات JavaScript -->
+    <!-- data.js يجب أن يُحمل أولاً لأنه يحتوي على البيانات -->
     <script src="data.js"></script>
+    <!-- script.js يعتمد على البيانات من data.js -->
     <script src="script.js"></script>
 </body>
 </html>

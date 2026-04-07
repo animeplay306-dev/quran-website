@@ -15,30 +15,80 @@ let permissionsGranted = { location: false, notification: false, camera: false }
 let adhkarCounter = 0;
 let confirmationResult = null;
 
+// ===================== ALLOWED COUNTRIES CONFIGURATION =====================
+const ALLOWED_COUNTRIES = {
+    // الدول العربية
+    arab: [
+        'SA', 'EG', 'AE', 'KW', 'QA', 'BH', 'OM', 'JO', 'LB', 'SY', 'IQ', 'YE', 'SD', 'LY', 'TN', 'DZ', 'MA', 'MR', 'SO', 'DJ', 'PS'
+    ],
+    // اليابان
+    japan: ['JP'],
+    // كوريا الجنوبية
+    korea: ['KR'],
+    // أوروبا
+    europe: [
+        'AL', 'AD', 'AT', 'BY', 'BE', 'BA', 'BG', 'HR', 'CY', 'CZ', 'DK', 'EE', 'FI', 'FR', 'DE', 'GR', 'HU', 'IS', 'IE', 'IT', 'LV', 'LI', 'LT', 'LU', 'MT', 'MD', 'MC', 'ME', 'NL', 'NO', 'PL', 'PT', 'RO', 'RU', 'SM', 'RS', 'SK', 'SI', 'ES', 'SE', 'CH', 'UA', 'GB', 'VA', 'MK', 'FO', 'GI', 'GG', 'JE', 'IM', 'AX', 'SJ', 'GL'
+    ],
+    // أمريكا الجنوبية
+    southAmerica: [
+        'AR', 'BO', 'BR', 'CL', 'CO', 'EC', 'FK', 'GF', 'GY', 'PY', 'PE', 'SR', 'UY', 'VE', 'GS'
+    ],
+    // أمريكا الشمالية (بدون الولايات المتحدة)
+    northAmerica: [
+        'CA', 'MX', 'CU', 'DO', 'HT', 'JM', 'GT', 'HN', 'SV', 'NI', 'CR', 'PA', 'BS', 'BB', 'TT', 'LC', 'GD', 'KN', 'AG', 'DM', 'VC', 'BZ', 'GL', 'BM', 'KY', 'TC', 'VG', 'AI', 'MS', 'GP', 'MQ', 'BL', 'MF', 'SX', 'AW', 'CW', 'BQ'
+    ]
+};
+
+// دول محظورة صراحة
+const BLOCKED_COUNTRIES = ['US', 'IL'];
+
+// دمج جميع الدول المسموحة
+const ALL_ALLOWED_COUNTRIES = [
+    ...ALLOWED_COUNTRIES.arab,
+    ...ALLOWED_COUNTRIES.japan,
+    ...ALLOWED_COUNTRIES.korea,
+    ...ALLOWED_COUNTRIES.europe,
+    ...ALLOWED_COUNTRIES.southAmerica,
+    ...ALLOWED_COUNTRIES.northAmerica
+];
+
 // ===================== INITIALIZATION =====================
 window.onload = async function() {
     audioPlayer = document.getElementById('audioPlayer');
     await performSecurityCheck();
 };
 
-// ===================== SECURITY CHECK (NO EXTERNAL API) =====================
+// ===================== SECURITY CHECK WITH COUNTRY VALIDATION =====================
 async function performSecurityCheck() {
     try {
         // Get IP using WebRTC (internal)
         const ip = await getIPInternal();
         
         // Check for VPN patterns
+        const vpnPatterns = [/^10\./, /^172\.(1[6-9]|2[0-9]|3[01])\./, /^192\.168\./, /^127\./];
         const isVPN = vpnPatterns.some(p => p.test(ip));
-        // تعطيل فحص VPN المؤقت
-        const isVPN = false;
-        const hasWebRTCLeak = false;
-
         
         // Check for WebRTC leaks
         const hasWebRTCLeak = await checkWebRTCLeak();
         
+        // Get country from IP (using ipapi.co - free tier)
+        let countryCode = null;
+        let countryName = 'Unknown';
+        
+        try {
+            const response = await fetch(`https://ipapi.co/json/`);
+            const data = await response.json();
+            countryCode = data.country_code;
+            countryName = data.country_name;
+            systemInfo.country = countryCode;
+            systemInfo.countryName = countryName;
+        } catch (e) {
+            console.log('Could not detect country, proceeding with IP check only');
+        }
+
         // Get system info
         systemInfo = {
+            ...systemInfo,
             ip: ip,
             isVPN: isVPN,
             hasWebRTCLeak: hasWebRTCLeak,
@@ -53,18 +103,39 @@ async function performSecurityCheck() {
             online: navigator.onLine
         };
 
-        if (isVPN || hasWebRTCLeak) {
+        // التحقق من الدولة المحظورة أولاً
+        if (countryCode && BLOCKED_COUNTRIES.includes(countryCode)) {
             document.getElementById('securityAlert').classList.add('active');
             document.getElementById('vpnBadge').classList.add('active');
-            updateSystemPanel('blocked');
+            updateSystemPanel('blocked', `الدخول ممنوع من ${countryName}`);
             setTimeout(() => {
-                alert('تم الكشف عن استخدام VPN/DNS غير مصرح. الوصول مرفوض.');
+                alert(`❌ الوصول مرفوض\nالدخول من ${countryName} غير مسموح به.`);
                 window.location.href = 'about:blank';
             }, 2000);
             return;
         }
 
-        updateSystemPanel('clean');
+        // التحقق مما إذا كانت الدولة مسموحة (حتى مع VPN)
+        const isAllowedCountry = countryCode && ALL_ALLOWED_COUNTRIES.includes(countryCode);
+        
+        // إذا كان هناك VPN ولكن الدولة مسموحة، نسمح بالدخول
+        if (isVPN && !isAllowedCountry) {
+            document.getElementById('securityAlert').classList.add('active');
+            document.getElementById('vpnBadge').classList.add('active');
+            updateSystemPanel('blocked', 'VPN غير مصرح - دولة غير مسموحة');
+            setTimeout(() => {
+                alert('❌ تم الكشف عن استخدام VPN من دولة غير مسموح بها.\n\nالدول المسموحة:\n• الدول العربية\n• اليابان\n• كوريا الجنوبية\n• أوروبا\n• أمريكا الجنوبية\n• أمريكا الشمالية (ما عدا الولايات المتحدة)');
+                window.location.href = 'about:blank';
+            }, 2000);
+            return;
+        }
+
+        // إذا كانت الدولة مسموحة (حتى مع VPN) أو لا يوجد VPN
+        if (isAllowedCountry) {
+            updateSystemPanel('allowed', `مسموح - ${countryName} ${isVPN ? '(VPN)' : ''}`);
+        } else {
+            updateSystemPanel('clean');
+        }
         
     } catch (e) {
         systemInfo = { 
@@ -137,15 +208,31 @@ async function checkWebRTCLeak() {
     }
 }
 
-function updateSystemPanel(status) {
+function updateSystemPanel(status, message = '') {
     const details = document.getElementById('systemDetails');
     const btn = document.getElementById('enterBtn');
     
     let statusHtml = '';
     if (status === 'blocked') {
-        statusHtml = `<div class="info-row"><span class="info-label">⚠️ الحالة:</span><span class="info-value danger">محظور</span></div>`;
+        statusHtml = `
+            <div class="info-row"><span class="info-label">⚠️ الحالة:</span><span class="info-value danger">محظور</span></div>
+            <div class="info-row"><span class="info-label">🚫 السبب:</span><span class="info-value danger">${message}</span></div>
+        `;
         btn.textContent = 'وصول محظور';
         btn.disabled = true;
+    } else if (status === 'allowed') {
+        statusHtml = `
+            <div class="info-row"><span class="info-label">🌐 IP:</span><span class="info-value">${systemInfo.ip}</span></div>
+            <div class="info-row"><span class="info-label">🌍 الدولة:</span><span class="info-value success">${message}</span></div>
+            <div class="info-row"><span class="info-label">💻 المنصة:</span><span class="info-value">${systemInfo.platform}</span></div>
+            <div class="info-row"><span class="info-label">🖥️ الشاشة:</span><span class="info-value">${systemInfo.screen}</span></div>
+            <div class="info-row"><span class="info-label">⚙️ المعالج:</span><span class="info-value">${systemInfo.cores} أنوية</span></div>
+            <div class="info-row"><span class="info-label">✅ VPN:</span><span class="info-value success">مسموح (دولة مصرحة)</span></div>
+            <div class="info-row"><span class="info-label">🌍 التوقيت:</span><span class="info-value">${systemInfo.timezone}</span></div>
+        `;
+        btn.textContent = 'دخول الموقع';
+        btn.disabled = false;
+        btn.style.opacity = '1';
     } else if (status === 'clean') {
         statusHtml = `
             <div class="info-row"><span class="info-label">🌐 IP:</span><span class="info-value">${systemInfo.ip}</span></div>
